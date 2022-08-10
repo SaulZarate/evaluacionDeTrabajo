@@ -1,5 +1,4 @@
 main{
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,4 +15,25 @@ select > option{
     top: 0;
     right: 0;
     
+}
+
+.sectionText{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentImg img{
+    height: 600px;
+    object-fit: fill;
+    object-position: center;
+}
+
+.contentImg{
+    display: flex;
+    justify-content: center;
+}
+
+.titleHeader{
+    font-size: 2em !important;
 }

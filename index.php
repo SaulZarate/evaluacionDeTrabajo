@@ -25,7 +25,13 @@
 </head>
 
 <body>
-    
+
+    <header class="bg-info border shadow-sm py-2">
+        <div class="container">
+            <p class="text-center display-5 titleHeader">Evaluacion de conocimientos</p>
+        </div>
+    </header>
+
     <?php 
         if(isset($_GET["error"])){
             showAlertError(str_replace(","," ",$_GET["error"]));
@@ -34,38 +40,54 @@
         }
     ?>
 
-    <main class="container text-center">
+    <main class="container my-5">
+        <div class="row">
+            
+            <section class="col-12 col-md-7 sectionText mb-5">
+                <form action="validate.php" method="POST" id='form'>
+                    <div class="row px-5">
+                        <div class="col-12 mb-3">
+                            <h1 class="text-center display-5">Seleccione una provincia y una localidad</h1>
+                        </div>
 
-        <h1 class="display-4 mb-5">Seleccione su provincia y localidad</h1>
-        
-        <form action="validate.php" method="POST" id='form'>
-            <div class="row">
-                <div class="col-12 col-md-5">
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="selectProvincia">Provincias</label>
-                        <select name="provincia" id="selectProvincia" class="form-select" required>
-                            <option value="">-- Seleccione una provincia --</option>
-                        </select>
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="selectProvincia">Provincias</label>
+                                <select name="provincia" id="selectProvincia" class="form-select" required>
+                                    <option value="">-- Seleccione una provincia --</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="selectLocalidades">Localidades</label>
+                                <select name="localidad" id="selectLocalidades" class="form-select" required>
+                                    <option value="">-- Seleccione una localidad --</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 d-grid gap-1">
+                            <input type="submit" value="Enviar" class="btn btn-block btn-outline-primary">
+                        </div>
+                        
                     </div>
-                </div>
+                </form>
+            </section>
 
-                <div class="col-12 col-md-5">
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="selectLocalidades">Localidades</label>
-                        <select name="localidad" id="selectLocalidades" class="form-select" required>
-                            <option value="">-- Seleccione una localidad --</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="col-12 col-md-2">
-                    <input type="submit" value="Enviar" class="btn btn-outline-primary">
-                </div>
-
-            </div>
-        </form>
+            
+            <section class="col-12 col-md-5 contentImg ">
+                    <img src="./image/mapaDeArgentinaYSusProvincias.jpg" alt="mapa de Argentina con sus provincias" class="img-thumbnail rounded">
+            </section>
+        </div>
     </main>
 
+    <footer class="bg-info border-top py-2 fixed-bottom">
+        <div class="container">
+            <p class="m-0 text-center">Desarrollado por Saúl Zarate</p>
+        </div>
+    </footer>
 
     <!-- My Javascript -->
     <script>
