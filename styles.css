@@ -5,18 +5,6 @@ main{
     flex-direction: column;
 }
 
-select,
-select > option{
-    text-transform: capitalize;
-}
-
-.alertCustom{
-    position: fixed;
-    top: 0;
-    right: 0;
-    
-}
-
 .sectionText{
     display: flex;
     justify-content: center;
