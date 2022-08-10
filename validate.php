@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . "/helpers/utils.php";
 require_once __DIR__ . "/data/Historial.php";
 
@@ -12,12 +13,19 @@ if(!$provinciaGET || !$localidadGET){
 }
 
 $historial = new Historial($provinciaGET, $localidadGET);
-
 $save = $historial->save();
-$message = $save ? "message=ok" : "error=No,se,pudo,guardar,la,información";
 
-header("Location: index.php?".$message);
-die();
+if($save){
+    $_SESSION["message"]["type"] = "ok";
+    $_SESSION["message"]["text"] = "Su elección ha sido guardada correctamente";
+}else{
+    $_SESSION["message"]["type"] = "error";
+    $_SESSION["message"]["text"] = "No se pudo guardar la información";
+}
+
+//header('Location: ./index.php');
+echo "<script>window.location='index.php'</script>;";
+exit();
 
 
 ?>

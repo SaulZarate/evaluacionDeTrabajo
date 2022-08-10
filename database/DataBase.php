@@ -1,17 +1,21 @@
 <?php 
+    require_once __DIR__ . "/credentials.php";
+
     class DataBase {
 
         public static function connect(){
             try{
-
-                $baseDatos = "evaluacioncuatrolados";
-                $host = "localhost";
-                $port = 3306;
-                $user = "root";
-                $password = "";
-            
-                $db = new PDO("mysql:dbname=$baseDatos;chartset=UTF-8;host=$host;port=$port",$user,$password);
-                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $credentials = getCredentials();
+                $host = $credentials["host"];
+                $baseDatos = $credentials["database"];
+                $user = $credentials["user"];
+                $password = $credentials["password"];
+                
+                $db = new PDO("mysql:dbname=$baseDatos;chartset=UTF-8;host=$host",$user,$password);
+                /* 
+                    // SQLSTATE[HY000] [1045] Access denied for user 'cuatrolados_eval'@'localhost' (using password: YES)
+                    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+                */
                 return $db;
                 
             }catch( Exception $e ){

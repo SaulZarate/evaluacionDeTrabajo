@@ -6,23 +6,23 @@ class Historial{
     
     private $db;
     private $id;
-    private $provincia;
-    private $localidad;
+    private $idProvincia;
+    private $idLocalidad;
     private $timestamp;
 
-    public function __construct($provincia, $localidad){
+    public function __construct($idProvincia, $idLocalidad){
         $this->db = DataBase::connect();
-        $this->provincia = $provincia;
-        $this->localidad = $localidad;
+        $this->idProvincia = $idProvincia;
+        $this->idLocalidad = $idLocalidad;
     }
 
     public function save(){
         try {
-            $sql = "INSERT INTO opciones_seleccionadas VALUES(null, :provincia, :localidad, null)";
+            $sql = "INSERT INTO opciones_seleccionadas VALUES(null, :idProvincia, :idLocalidad, null)";
             $query = $this->db->prepare($sql);
             return $query->execute([
-                ":provincia" => $this->db->quote($this->provincia),
-                ":localidad" => $this->db->quote($this->localidad)
+                ":idProvincia" => $this->idProvincia,
+                ":idLocalidad" => $this->idLocalidad
             ]);
 
         } catch (Exception $ex) {

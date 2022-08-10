@@ -1,8 +1,8 @@
-<?php require_once __DIR__ . "/helpers/utils.php"; ?>
-<?php require_once __DIR__ . "/data/Querys.php"; ?>
-
 <?php 
-    
+    session_start();
+    require_once __DIR__ . "/helpers/utils.php"; 
+    require_once __DIR__ . "/data/Querys.php"; 
+
     $provincias = Querys::getProvincias();
     $localidades = Querys::getLocalidades();
 ?>
@@ -20,26 +20,40 @@
     <link rel="stylesheet" href="./styles.css">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <!-- My Functions JS -->
     <script src="./helpers/utils.js"></script>
 </head>
 
 <body>
 
+    <!-- 
+        --------------------------
+        --------- HEADER ---------
+        --------------------------
+    -->
     <header class="bg-info border shadow-sm py-2">
         <div class="container">
             <p class="text-center display-5 titleHeader">Evaluacion de conocimientos</p>
         </div>
     </header>
 
+    <!-- Alert -->
     <?php 
-        if(isset($_GET["error"])){
-            showAlertError(str_replace(","," ",$_GET["error"]));
-        }elseif(isset($_GET["message"])){
-            showAlertOk("Su selección ha sido guardada correctamente");
+        if(isset($_SESSION["message"])){
+            if($_SESSION["message"]["type"] == "ok"){
+                showAlertOk($_SESSION["message"]["text"]);
+            }elseif($_SESSION["message"]["type"] == "error"){
+                showAlertError($_SESSION["message"]["text"]);
+            }
+            unset($_SESSION["message"]);
         }
     ?>
 
+    <!-- 
+        --------------------------
+        ---------- MAIN ----------
+        --------------------------
+    -->
     <main class="container my-5">
         <div class="row">
             
@@ -55,6 +69,9 @@
                                 <label class="input-group-text" for="selectProvincia">Provincias</label>
                                 <select name="provincia" id="selectProvincia" class="form-select" required>
                                     <option value="">-- Seleccione una provincia --</option>
+                                    <?php foreach ($provincias as $provincia): ?>
+                                        <option value="<?php echo $provincia["nombre"]?>"><?php echo $provincia["nombre"]?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
@@ -83,38 +100,45 @@
         </div>
     </main>
 
+
+    <!-- 
+        --------------------------
+        --------- FOOTER ---------
+        --------------------------
+    -->
     <footer class="bg-info border-top py-2 fixed-bottom">
         <div class="container">
             <p class="m-0 text-center">Desarrollado por Saúl Zarate</p>
         </div>
     </footer>
 
+    <?=count($provincias)?>
+    <?=count($localidades)?>
+
     <!-- My Javascript -->
-    <script>
+    <script type="application/javascript">
+
+        /* Data */
+        const provinciasJs = <?php echo json_encode($provincias)?>
+        const localidadesJs = <?php echo json_encode($localidades)?>
+        
+        console.log(provinciasJs);
+        console.log(localidadesJs);
+
+        
         window.addEventListener('DOMContentLoaded', () => {
 
-            /* 
-                Data
-            */
-            const provincias = <?php echo json_encode($provincias); ?>  
-            const localidades = <?php echo json_encode($localidades); ?>  
-            
-            /* 
-                Elements
-            */
-            const selectProvincia = document.getElementById('selectProvincia')
-            const selectLocalidades = document.getElementById('selectLocalidades')
-            const form = document.getElementById('form')
-
-            addOptions(provincias, selectProvincia)
+            /* Elements */
+            const selectProvincia = document.getElementById('selectProvincia');
+            const selectLocalidades = document.getElementById('selectLocalidades');
 
             selectProvincia.addEventListener('change', e => {
-                clearSelect(selectLocalidades)
+                clearSelect(selectLocalidades);
 
-                const {id:provinciaId} = findProvinciaIdByName(e.target.value, provincias)
+                const {id:provinciaId} = findProvinciaIdByName(e.target.value, provinciasJs);
 
-                const localidadesByProvincia = findLocalidadesByProvinciaId(provinciaId, localidades)
-                addOptions(localidadesByProvincia, selectLocalidades)
+                const localidadesByProvincia = findLocalidadesByProvinciaId(provinciaId, localidadesJs);
+                addOptions(localidadesByProvincia, selectLocalidades);
             })
 
         })
