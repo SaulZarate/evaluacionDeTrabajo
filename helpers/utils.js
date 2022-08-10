@@ -1,7 +1,7 @@
 function createOptionSelect(id, value){
     const option = document.createElement("option")
-    option.value = value
-    option.text = value
+    option.value = id
+    option.text = primerLetraEnMayuscula(value)
     return option
 }
 
@@ -15,24 +15,12 @@ function clearSelect(select){
     select.innerHTML = ''
 }
 
-/* 
-    Provincia
-*/
-function findProvinciaById(id, provincias){
-    return provincias.find(provincia => provincia.id === id)
-}
-function findProvinciaIdByName(nombre, provincias){
-    return provincias.find(provincia => provincia.nombre == nombre)
+function capitalize(word){
+    if(!word) return ''
+    return word[0].toUpperCase() + word.slice(1);
 }
 
-/* 
-    Localidad 
-*/
-function findLocalidadById(id, localidades){
-    return localidades.find(localidad => localidad.id === id)
+function primerLetraEnMayuscula(text = ''){
+    const textToArray = text.trim().split(' ')
+    return textToArray.map(word => capitalize(word)).join(' ')
 }
-
-function findLocalidadesByProvinciaId(provinciaId, localidades){
-    return localidades.filter( localidad => localidad.provincia_id == provinciaId)
-}
-

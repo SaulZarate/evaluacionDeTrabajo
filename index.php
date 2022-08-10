@@ -70,7 +70,7 @@
                                 <select name="provincia" id="selectProvincia" class="form-select" required>
                                     <option value="">-- Seleccione una provincia --</option>
                                     <?php foreach ($provincias as $provincia): ?>
-                                        <option value="<?php echo $provincia["nombre"]?>"><?php echo $provincia["nombre"]?></option>
+                                        <option value="<?php echo $provincia["id"]?>"><?php echo $provincia["nombre"]?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -111,21 +111,17 @@
             <p class="m-0 text-center">Desarrollado por Saúl Zarate</p>
         </div>
     </footer>
-
-    <?=count($provincias)?>
-    <?=count($localidades)?>
+    
 
     <!-- My Javascript -->
     <script type="application/javascript">
 
         /* Data */
-        const provinciasJs = <?php echo json_encode($provincias)?>
-        const localidadesJs = <?php echo json_encode($localidades)?>
-        
-        console.log(provinciasJs);
-        console.log(localidadesJs);
+        // Por algun motivo necesitaba el ;
+        const provinciasJs = <?php echo json_encode($provincias)?>;
+        const localidadesJs = <?php echo json_encode($localidades)?>;
 
-        
+
         window.addEventListener('DOMContentLoaded', () => {
 
             /* Elements */
@@ -134,10 +130,11 @@
 
             selectProvincia.addEventListener('change', e => {
                 clearSelect(selectLocalidades);
+                
+                const provinciaId = e.target.value
 
-                const {id:provinciaId} = findProvinciaIdByName(e.target.value, provinciasJs);
+                const localidadesByProvincia = localidadesJs.filter( localidad => localidad.idProvincia == provinciaId)
 
-                const localidadesByProvincia = findLocalidadesByProvinciaId(provinciaId, localidadesJs);
                 addOptions(localidadesByProvincia, selectLocalidades);
             })
 

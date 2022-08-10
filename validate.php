@@ -8,7 +8,9 @@ $localidadGET = $_POST["localidad"] ?? null;
 
 /* Validar datos */
 if(!$provinciaGET || !$localidadGET){
-    header("Location: index.php?error=Datos,incompletos");
+    $_SESSION["message"]["type"] = "error";
+    $_SESSION["message"]["text"] = "No se pudo guardar la información";
+    header("Location: index.php");
     die();
 }
 
