@@ -16,10 +16,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluacion de conocimientos</title>
 
-    <!-- My styles -->
-    <link rel="stylesheet" href="./styles.css">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="./assets/select2/select2.min.css">
+
+    <!-- My styles -->
+    <link rel="stylesheet" href="./styles.css">
     <!-- My Functions JS -->
     <script src="./helpers/utils.js"></script>
 </head>
@@ -64,7 +67,7 @@
                             <h1 class="text-center display-5">Seleccione una provincia y una localidad</h1>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-12 mb-3">
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="selectProvincia">Provincias</label>
                                 <select name="provincia" id="selectProvincia" class="form-select" required>
@@ -76,12 +79,15 @@
                             </div>
                         </div>
                         
-                        <div class="col-12">
-                            <div class="input-group mb-3">
+                        <div class="col-12 mb-3">
+                            <div class="input-group">
                                 <label class="input-group-text" for="selectLocalidades">Localidades</label>
-                                <select name="localidad" id="selectLocalidades" class="form-select" required>
-                                    <option value="">-- Seleccione una localidad --</option>
-                                </select>
+                                
+                                <div class="contentSelect ">
+                                    <select name="localidad" id="selectLocalidades" required>
+                                        <option value="">-- Seleccione una localidad --</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         
@@ -113,35 +119,45 @@
     </footer>
     
 
+
+    <!-- Jquery -->
+    <script src="./assets/jquery/jquery.min.js"></script>
+    <!-- Select2 -->
+    <script src="./assets/select2/select2.min.js"></script>
+
     <!-- My Javascript -->
     <script type="application/javascript">
-
-        /* Data */
+        /* 
+            Data
+        */
         // Por algun motivo necesitaba el ;
         const provinciasJs = <?php echo json_encode($provincias)?>;
         const localidadesJs = <?php echo json_encode($localidades)?>;
-
-
-        window.addEventListener('DOMContentLoaded', () => {
+                                    
+        $().ready(() => {
 
             /* Elements */
-            const selectProvincia = document.getElementById('selectProvincia');
-            const selectLocalidades = document.getElementById('selectLocalidades');
+            const selectProvincia = $('#selectProvincia');
+            const selectLocalidades = $('#selectLocalidades');
+            // Select2
+            /* selectProvincia.select2(); */
+            selectLocalidades.select2({
+                selectionCssClass: 'stylesSelect2'
+            });
 
-            selectProvincia.addEventListener('change', e => {
-                clearSelect(selectLocalidades);
+            selectProvincia.change((e) => {
+                clearSelect(selectLocalidades.get(0));
                 
                 const provinciaId = e.target.value
 
                 const localidadesByProvincia = localidadesJs.filter( localidad => localidad.idProvincia == provinciaId)
 
-                addOptions(localidadesByProvincia, selectLocalidades);
+                addOptions(localidadesByProvincia, selectLocalidades.get(0));
+                
             })
 
         })
     </script>
-    <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>
