@@ -6,7 +6,7 @@ class Querys{
     public static function getProvincias(){
         try {
             $db = DataBase::connect();
-            $sql = "SELECT * FROM provincias";   
+            $sql = "SELECT * FROM provincias ORDER BY nombre";   
             $query = $db->prepare($sql);
             $query->execute();
             $data = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -19,7 +19,7 @@ class Querys{
     public static function getLocalidades(){
         try {
             $db = DataBase::connect();
-            $sql = "SELECT * FROM localidades";   
+            $sql = "SELECT * FROM localidades ORDER BY nombre";   
             $query = $db->prepare($sql);
             $query->execute();
             $data = $query->fetchAll(PDO::FETCH_ASSOC);
