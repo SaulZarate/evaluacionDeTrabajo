@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once __DIR__ . "/helpers/utils.php";
 require_once __DIR__ . "/data/Historial.php";
 
 $provinciaGET = $_POST["provincia"] ?? null;

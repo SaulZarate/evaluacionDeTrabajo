@@ -1,5 +1,5 @@
 <?php 
-
+require_once __DIR__ . "/../helpers/utils.php";
 require_once __DIR__ . "/../database/DataBase.php";
 
 class Historial{
@@ -26,7 +26,7 @@ class Historial{
             ]);
 
         } catch (Exception $ex) {
-            showDataVar($ex);
+            Utils::showDataVar($ex);
             return false;
         }
     }

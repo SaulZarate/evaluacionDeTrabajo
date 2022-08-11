@@ -44,9 +44,9 @@
     <?php 
         if(isset($_SESSION["message"])){
             if($_SESSION["message"]["type"] == "ok"){
-                showAlertOk($_SESSION["message"]["text"]);
+                Utils::showAlertOk($_SESSION["message"]["text"]);
             }elseif($_SESSION["message"]["type"] == "error"){
-                showAlertError($_SESSION["message"]["text"]);
+                Utils::showAlertError($_SESSION["message"]["text"]);
             }
             unset($_SESSION["message"]);
         }
@@ -140,7 +140,6 @@
             const selectProvincia = $('#selectProvincia');
             const selectLocalidades = $('#selectLocalidades');
             // Select2
-            /* selectProvincia.select2(); */
             selectLocalidades.select2({
                 selectionCssClass: 'stylesSelect2'
             });
@@ -149,7 +148,6 @@
                 clearSelect(selectLocalidades.get(0));
                 
                 const provinciaId = e.target.value
-
                 const localidadesByProvincia = localidadesJs.filter( localidad => localidad.idProvincia == provinciaId)
 
                 addOptions(localidadesByProvincia, selectLocalidades.get(0));

@@ -6,9 +6,12 @@ function createOptionSelect(id, value){
 }
 
 function addOptions(data, select){
-    for (const item of data) {
+    data.forEach(item => {
+        select.add(createOptionSelect(item.id, item.nombre), null)
+    });
+    /* for (const item of data) {
         select.add(createOptionSelect(item.id, item.nombre),null)
-    }
+    } */
 }
 
 function clearSelect(select){

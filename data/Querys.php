@@ -19,7 +19,8 @@ class Querys{
             $data = $query->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (Exception $ex) {
-            showDataVar($ex);
+            Utils::showDataVar($ex);
+            exit();
         }
     }
 
@@ -41,7 +42,8 @@ class Querys{
             $data = $query->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (Exception $ex) {
-            showDataVar($ex);
+            Utils::showDataVar($ex);
+            exit();
         }
     }
 
