@@ -8,3 +8,25 @@
 - Agregue un botón que realice un post y guarde en la tabla "opciones_seleccionadas" la combinación seleccionada con la fecha y hora del guardado.
 - Muestre una alerta en caso de guardado satisfactorio.
 - __Sugerencia: Agregue un buscador al campo de localidades que permita buscar la opción deseada, en vez de tener que seleccionar del listado. Una opción posible es select2.__
+
+## Pre-requisitos 📋
+```
+- PHP
+- Mysql
+```
+
+## Instalación 🔧
+
+- Descargar el proyecto 
+```
+git clone https://github.com/SaulZarate/evaluacionDeTrabajo.git
+```
+- Importar la base de datos del archivo _/database/database.sql_
+- Configurar las credenciales
+    - Cambie el nombre del archivo credentials.example.php por credentials.php en la carpeta de _/database/_
+    - Ingrese sus credenciales
+- Ejecute su proyecto
+
+
+## Autor ✒️
+- Saul Zarate - _Desarrollador_
